@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkedIn</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        background-color: #f3f2ef;
+        color: rgba(0, 0, 0, 0.9);
+      }
+      .navbar {
+        background-color: #fff;
+        padding: 0 24px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .nav-left,
+      .nav-right {
+        display: flex;
+        align-items: center;
+      }
+      .logo {
+        width: 34px;
+        height: 34px;
+        background-color: #0a66c2;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: bold;
+        font-size: 18px;
+        margin-right: 8px;
+      }
+      .search-box {
+        display: flex;
+        align-items: center;
+        background-color: #eef3f8;
+        border-radius: 4px;
+        padding: 0 8px;
+        height: 34px;
+      }
+      .search-icon {
+        color: rgba(0, 0, 0, 0.6);
+        margin-right: 8px;
+      }
+      .search-input {
+        border: none;
+        background-color: transparent;
+        font-size: 14px;
+        width: 280px;
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.6);
+        text-decoration: none;
+        font-size: 12px;
+        margin: 0 12px;
+      }
+      .nav-icon {
+        font-size: 24px;
+        margin-bottom: 4px;
+      }
+      .container {
+        max-width: 1128px;
+        margin: 72px auto 0;
+        padding: 24px 16px;
+        display: flex;
+        gap: 24px;
+      }
+      .main-content {
+        flex: 1;
+      }
+      .sidebar {
+        width: 300px;
+      }
+      .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        margin-bottom: 16px;
+        overflow: hidden;
+      }
+      .profile-background {
+        height: 200px;
+        background-color: #a0b4b7;
+        position: relative;
+      }
+      .camera-icon {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background-color: #fff;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .profile-info {
+        padding: 24px;
+        position: relative;
+      }
+      .profile-photo {
+        width: 160px;
+        height: 160px;
+        border: 4px solid #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: -80px;
+        left: 24px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 72px;
+        color: #0a66c2;
+        cursor: pointer;
+      }
+      .edit-icon {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        color: #666;
+        cursor: pointer;
+      }
+      .profile-name {
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: 64px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .verify-badge {
+        color: #0a66c2;
+        font-size: 16px;
+      }
+      .profile-headline {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.9);
+        margin-top: 4px;
+      }
+      .profile-location {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-top: 4px;
+      }
+      .profile-connections {
+        font-size: 14px;
+        color: #0a66c2;
+        margin-top: 4px;
+        font-weight: 600;
+      }
+      .profile-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .btn {
+        padding: 6px 16px;
+        border-radius: 16px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background-color: #0a66c2;
+        color: #fff;
+        border: none;
+      }
+      .btn-secondary {
+        background-color: transparent;
+        color: #0a66c2;
+        border: 1px solid #0a66c2;
+      }
+      .btn-tertiary {
+        background-color: transparent;
+        color: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(0, 0, 0, 0.6);
+      }
+      .section-card {
+        padding: 24px;
+      }
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .add-icon {
+        color: #666;
+        cursor: pointer;
+      }
+      .experience-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .experience-item .job-title {
+        font-weight: bold;
+      }
+
+      .experience-item .company,
+      .experience-item .date,
+      .experience-item .description {
+        margin-top: 4px;
+        color: #555;
+      }
+
+      .experience-item .remove-experience {
+        margin-left: 10px;
+        color: #ff4d4d;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .experience-item .remove-experience:hover {
+        color: #ff1a1a;
+      }
+
+      #experience-list {
+        background-color: #f5f5f5;
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .experience-item,
+      .education-item,
+      .skills-item {
+        display: flex;
+        margin-top: 16px;
+      }
+      .experience-logo,
+      .education-logo {
+        width: 48px;
+        height: 48px;
+        background-color: #f3f2ef;
+        border-radius: 8px;
+        margin-right: 8px;
+      }
+      .experience-details,
+      .education-details,
+      .skills-details {
+        flex-grow: 1;
+      }
+      .experience-title,
+      .education-degree,
+      .skill-name {
+        font-weight: 600;
+      }
+      .experience-company,
+      .education-school {
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .experience-date,
+      .education-date {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .sidebar-card {
+        padding: 16px;
+      }
+      .about-section {
+        position: relative;
+      }
+      .about-content {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .about-edit-icon {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        color: #666;
+        cursor: pointer;
+      }
+      #about-form {
+        display: none;
+        margin-top: 16px;
+      }
+      #about-form.active {
+        display: block;
+      }
+      #about-textarea {
+        width: 100%;
+        height: 150px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        resize: vertical;
+      }
+      .sidebar-title {
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .sidebar-content {
+        margin-top: 8px;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .edit-form {
+        display: none;
+        margin-top: 16px;
+      }
+      .edit-form.active {
+        display: block;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: 600;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .form-group textarea {
+        height: 100px;
+        resize: vertical;
+      }
+      .experience-section {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        margin-bottom: 16px;
+        padding: 24px;
+      }
+      .experience-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .experience-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .experience-item {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .experience-item:last-child {
+        border-bottom: none;
+      }
+      .job-title {
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .company,
+      .date {
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 14px;
+      }
+      .description {
+        margin-top: 8px;
+      }
+      #experience-form {
+        display: none;
+        margin-top: 16px;
+      }
+      #experience-form.active {
+        display: block;
+      }
+      .skills-section {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        margin-bottom: 16px;
+        padding: 24px;
+      }
+      .skills-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .skills-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .skills-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 8px;
+        background-color: #f3f2ef;
+        border-radius: 4px;
+      }
+      .skill-name {
+        font-weight: 600;
+      }
+      .remove-skill {
+        cursor: pointer;
+        color: #666;
+      }
+      #skills-form {
+        display: none;
+        margin-top: 16px;
+      }
+      #skills-form.active {
+        display: block;
+      }
+      .skills-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      .experience-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      /* ... (previous styles remain unchanged) ... */
+
+      .education-section {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        margin-bottom: 16px;
+        padding: 24px;
+      }
+      .education-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+      }
+
+      .education-item .education-degree {
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .education-item .education-school {
+        margin-top: 4px;
+        color: #555;
+        flex: 1;
+      }
+
+      .education-item .education-date {
+        color: #888;
+        margin-left: 10px;
+      }
+
+      .education-item .remove-education {
+        margin-left: 10px;
+        color: #ff4d4d;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .education-item .remove-education:hover {
+        color: #ff1a1a;
+      }
+
+      #education-list {
+        background-color: #f5f5f5;
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .education-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .education-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .education-item {
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .education-item:last-child {
+        border-bottom: none;
+      }
+      .education-item .education-degree {
+        font-weight: bold;
+        font-size: 16px;
+        margin-right: 12px; /* Add space between degree and school */
+      }
+      .education-degree {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .education-school,
+      .education-date {
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 14px;
+      }
+      #education-form {
+        display: none;
+        margin-top: 16px;
+      }
+      #education-form.active {
+        display: block;
+      }
+      .education-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+        .sidebar {
+          width: 100%;
+        }
+        .profile-actions {
+          flex-wrap: wrap;
+        }
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">in</div>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" placeholder="Search" />
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="nav-item">
+          <span class="nav-icon">🏠</span>
+          Home
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">👥</span>
+          My Network
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">💼</span>
+          Jobs
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">💬</span>
+          Messaging
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">🔔</span>
+          Notifications
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">👤</span>
+          Me
+        </a>
+      </div>
+    </nav>
+    <div class="container">
+      <main class="main-content">
+        <div class="card">
+          <div class="profile-background">
+            <div class="camera-icon">📷</div>
+          </div>
+          <div class="profile-info">
+            <div class="profile-photo" id="profile-photo">👤</div>
+            <div class="edit-icon" id="edit-profile">✏️</div>
+            <h1 class="profile-name">
+              Ankush Chauhan <span class="verify-badge">✓</span>
+            </h1>
+            <p class="profile-headline">
+              Python Developer at Nihal Software | Web Development | Chatbots |
+              Django | Flask |
+            </p>
+            <p class="profile-location">Gurugram, Haryana, India</p>
+            <p class="profile-connections">223 connections</p>
+            <div class="profile-actions">
+              <button class="btn btn-primary">Open to</button>
+              <button class="btn btn-secondary">Add profile section</button>
+              <button class="btn btn-tertiary">More</button>
+            </div>
+            <form id="edit-form" class="edit-form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value="Ankush Chauhan"
+                />
+              </div>
+              <div class="form-group">
+                <label for="headline">Headline</label>
+                <input
+                  type="text"
+                  id="headline"
+                  name="headline"
+                  value="Python Developer at Nihal Software | Web Development | Chatbots | Django | Flask |"
+                />
+              </div>
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  value="Gurugram, Haryana, India"
+                />
+              </div>
+              <div class="form-group">
+                <label for="about">About</label>
+                <textarea id="about" name="about">
+Experienced Python Developer with a passion for creating efficient and scalable web applications.</textarea
+                >
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-tertiary" id="cancel-edit">
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card section-card about-section">
+          <h2 class="section-title">About</h2>
+          <span class="about-edit-icon" id="edit-about">✏️</span>
+          <p class="about-content" id="about-content">
+            Experienced Python Developer with a passion for creating efficient
+            and scalable web applications.
+          </p>
+          <form id="about-form">
+            <textarea id="about-textarea"></textarea>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button
+              type="button"
+              class="btn btn-tertiary"
+              id="cancel-about-edit"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+
+        <div class="experience-section">
+          <div class="experience-header">
+            <h2 class="experience-title">Experience</h2>
+            <span class="add-icon" id="add-experience">+</span>
+          </div>
+          <div id="experience-list"></div>
+          <form id="experience-form">
+            <div class="form-group">
+              <label for="job-title">Job Title</label>
+              <input type="text" id="job-title" name="job-title" required />
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" required />
+            </div>
+            <div class="form-group">
+              <label for="start-date">Start Date</label>
+              <input type="text" id="start-date" name="start-date" required />
+            </div>
+            <div class="form-group">
+              <label for="end-date">End Date</label>
+              <input type="text" id="end-date" name="end-date" required />
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancel-experience"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+
+        <!-- ... (previous HTML content remains unchanged) ... -->
+
+        <div class="education-section">
+          <div class="education-header">
+            <h2 class="education-title">Education</h2>
+            <span class="add-icon" id="add-education">+</span>
+          </div>
+          <div id="education-list">
+            <!-- Education items will be added here dynamically -->
+          </div>
+          <form id="education-form">
+            <input
+              type="text"
+              id="degree"
+              name="degree"
+              class="education-input"
+              placeholder="Degree"
+              required
+            />
+            <input
+              type="text"
+              id="school"
+              name="school"
+              class="education-input"
+              placeholder="School"
+              required
+            />
+            <input
+              type="text"
+              id="start-year"
+              name="start-year"
+              class="education-input"
+              placeholder="Start Year"
+              required
+            />
+            <input
+              type="text"
+              id="end-year"
+              name="end-year"
+              class="education-input"
+              placeholder="End Year"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancel-education"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+
+        <div class="skills-section">
+          <div class="skills-header">
+            <h2 class="skills-title">Skills</h2>
+            <span class="add-icon" id="add-skill">+</span>
+          </div>
+          <div id="skills-list"></div>
+          <form id="skills-form">
+            <input
+              type="text"
+              id="skill-name"
+              name="skill-name"
+              class="skills-input"
+              placeholder="Enter a skill"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Add Skill</button>
+            <button type="button" class="btn btn-secondary" id="cancel-skill">
+              Cancel
+            </button>
+          </form>
+        </div>
+      </main>
+      <aside class="sidebar">
+        <div class="card sidebar-card">
+          <h3 class="sidebar-title">
+            Profile language
+            <span class="edit-icon">✏️</span>
+          </h3>
+          <p class="sidebar-content">English</p>
+        </div>
+        <div class="card sidebar-card">
+          <h3 class="sidebar-title">
+            Public profile & URL
+            <span class="edit-icon">✏️</span>
+          </h3>
+          <p class="sidebar-content">
+            www.linkedin.com/in/ankush-chauhan-bb7908316
+          </p>
+        </div>
+      </aside>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const editButton = document.getElementById("edit-profile");
+        const editForm = document.getElementById("edit-form");
+        const cancelButton = document.getElementById("cancel-edit");
+        const profilePhoto = document.getElementById("profile-photo");
+
+        editButton.addEventListener("click", function () {
+          editForm.classList.add("active");
+        });
+
+        cancelButton.addEventListener("click", function () {
+          editForm.classList.remove("active");
+        });
+
+        editForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          const headline = document.getElementById("headline").value;
+          const location = document.getElementById("location").value;
+          const about = document.getElementById("about").value;
+
+          document.querySelector(".profile-name").textContent = name;
+          document.querySelector(".profile-headline").textContent = headline;
+          document.querySelector(".profile-location").textContent = location;
+          document.querySelector(".section-card p").textContent = about;
+
+          editForm.classList.remove("active");
+        });
+
+        const addExperienceButton = document.getElementById("add-experience");
+        const experienceForm = document.getElementById("experience-form");
+        const cancelExperienceButton =
+          document.getElementById("cancel-experience");
+        const experienceList = document.getElementById("experience-list");
+
+        let experiences = [
+          {
+            id: 1,
+            title: "Python Developer",
+            company: "Nihal Software",
+            startDate: "Jan 2022",
+            endDate: "Present",
+            description:
+              "Developed and maintained web applications using Python, Django, and Flask.",
+          },
+        ];
+
+        function renderExperiences() {
+          experienceList.innerHTML = "";
+          experiences.forEach((exp, index) => {
+            const expElement = document.createElement("div");
+            expElement.className = "experience-item";
+            expElement.innerHTML = `
+      <div class="job-title">${exp.title}</div>
+      <div class="company">${exp.company}</div>
+      <div class="date">${exp.startDate} - ${exp.endDate}</div>
+      <div class="description">${exp.description}</div>
+      <span class="remove-experience" data-index="${index}">❌</span>
+    `;
+            experienceList.appendChild(expElement);
+          });
+
+          // Add event listeners to remove icons
+          document.querySelectorAll(".remove-experience").forEach((icon) => {
+            icon.addEventListener("click", function () {
+              const index = this.getAttribute("data-index");
+              experiences.splice(index, 1);
+              renderExperiences();
+            });
+          });
+        }
+
+        addExperienceButton.addEventListener("click", function () {
+          experienceForm.style.display = "block";
+        });
+
+        cancelExperienceButton.addEventListener("click", function () {
+          experienceForm.style.display = "none";
+          experienceForm.reset();
+        });
+
+        experienceForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(experienceForm);
+          const newExperience = {
+            id: Date.now(),
+            title: formData.get("job-title"),
+            company: formData.get("company"),
+            startDate: formData.get("start-date"),
+            endDate: formData.get("end-date"),
+            description: formData.get("description"),
+          };
+
+          experiences.push(newExperience);
+          renderExperiences();
+          experienceForm.style.display = "none";
+          experienceForm.reset();
+        });
+
+        // Initial render
+        renderExperiences();
+
+        const addSkillButton = document.getElementById("add-skill");
+        const skillsForm = document.getElementById("skills-form");
+        const cancelSkillButton = document.getElementById("cancel-skill");
+        const skillsList = document.getElementById("skills-list");
+
+        let skills = ["Python", "Django", "Flask"];
+
+        function renderSkills() {
+          skillsList.innerHTML = "";
+          skills.forEach((skill, index) => {
+            const skillElement = document.createElement("div");
+            skillElement.className = "skills-item";
+            skillElement.innerHTML = `
+                        <span class="skill-name">${skill}</span>
+                        <span class="remove-skill" data-index="${index}">❌</span>
+                    `;
+            skillsList.appendChild(skillElement);
+          });
+
+          // Add event listeners to remove icons
+          document.querySelectorAll(".remove-skill").forEach((icon) => {
+            icon.addEventListener("click", function () {
+              const index = this.getAttribute("data-index");
+              skills.splice(index, 1);
+              renderSkills();
+            });
+          });
+        }
+
+        addSkillButton.addEventListener("click", function () {
+          skillsForm.style.display = "block";
+        });
+
+        cancelSkillButton.addEventListener("click", function () {
+          skillsForm.style.display = "none";
+          skillsForm.reset();
+        });
+
+        skillsForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const newSkill = document.getElementById("skill-name").value;
+          if (newSkill && !skills.includes(newSkill)) {
+            skills.push(newSkill);
+            renderSkills();
+            skillsForm.style.display = "none";
+            skillsForm.reset();
+          }
+
+          // Initial render
+          renderSkills();
+
+          // ... (remaining JavaScript code remains unchanged) ...
+        });
+        const addEducationButton = document.getElementById("add-education");
+        const educationForm = document.getElementById("education-form");
+        const cancelEducationButton =
+          document.getElementById("cancel-education");
+        const educationList = document.getElementById("education-list");
+
+        let educations = [
+          {
+            id: 1,
+            degree: "Bachelor's degree, Computer Science",
+            school: "BPSMV university",
+            startYear: "2018",
+            endYear: "2022",
+          },
+        ];
+
+        function renderEducations() {
+          educationList.innerHTML = "";
+          educations.forEach((edu, index) => {
+            const eduElement = document.createElement("div");
+            eduElement.className = "education-item";
+            eduElement.innerHTML = `
+      <h3 class="education-degree">${edu.degree}</h3>
+      <p class="education-school">${edu.school}</p>
+      <p class="education-date">${edu.startYear} - ${edu.endYear}</p>
+      <span class="remove-education" data-index="${index}">❌</span>
+    `;
+            educationList.appendChild(eduElement);
+          });
+
+          // Add event listeners to remove icons
+          document.querySelectorAll(".remove-education").forEach((icon) => {
+            icon.addEventListener("click", function () {
+              const index = this.getAttribute("data-index");
+              educations.splice(index, 1);
+              renderEducations();
+            });
+          });
+        }
+
+        addEducationButton.addEventListener("click", function () {
+          educationForm.style.display = "block";
+        });
+
+        cancelEducationButton.addEventListener("click", function () {
+          educationForm.style.display = "none";
+          educationForm.reset();
+        });
+
+        educationForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(educationForm);
+          const newEducation = {
+            id: Date.now(),
+            degree: formData.get("degree"),
+            school: formData.get("school"),
+            startYear: formData.get("start-year"),
+            endYear: formData.get("end-year"),
+          };
+
+          educations.push(newEducation);
+          renderEducations();
+          educationForm.style.display = "none";
+          educationForm.reset();
+        });
+
+        // Initial render
+        renderEducations();
+
+        // ... (remain
+
+        // Initial render
+        renderExperiences();
+
+        profilePhoto.addEventListener("click", function () {
+          const input = document.createElement("input");
+          input.type = "file";
+          input.accept = "image/*";
+          input.onchange = function (event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              profilePhoto.style.backgroundImage = `url(${e.target.result})`;
+              profilePhoto.style.backgroundSize = "cover";
+              profilePhoto.style.backgroundPosition = "center";
+              profilePhoto.textContent = "";
+            };
+            reader.readAsDataURL(file);
+          };
+          input.click();
+        });
+        // Load data from localStorage
+        function loadData() {
+          const storedExperiences = localStorage.getItem("experiences");
+          if (storedExperiences) {
+            experiences = JSON.parse(storedExperiences);
+            renderExperiences();
+          }
+
+          const storedSkills = localStorage.getItem("skills");
+          if (storedSkills) {
+            skills = JSON.parse(storedSkills);
+            renderSkills();
+          }
+
+          const storedEducations = localStorage.getItem("educations");
+          if (storedEducations) {
+            educations = JSON.parse(storedEducations);
+            renderEducations();
+          }
+
+          document.querySelector(".profile-name").textContent =
+            localStorage.getItem("name") || "Ankush Chauhan";
+          document.querySelector(".profile-headline").textContent =
+            localStorage.getItem("headline") ||
+            "Python Developer at Nihal Software | Web Development | Chatbots | Django | Flask |";
+          document.querySelector(".profile-location").textContent =
+            localStorage.getItem("location") || "Gurugram, Haryana, India";
+          document.querySelector("#about-content").textContent =
+            localStorage.getItem("about") ||
+            "Experienced Python Developer with a passion for creating efficient and scalable web applications.";
+        }
+
+        // Save data to localStorage
+        function saveData() {
+          localStorage.setItem("experiences", JSON.stringify(experiences));
+          localStorage.setItem("skills", JSON.stringify(skills));
+          localStorage.setItem("educations", JSON.stringify(educations));
+          localStorage.setItem(
+            "name",
+            document.querySelector(".profile-name").textContent
+          );
+          localStorage.setItem(
+            "headline",
+            document.querySelector(".profile-headline").textContent
+          );
+          localStorage.setItem(
+            "location",
+            document.querySelector(".profile-location").textContent
+          );
+          localStorage.setItem(
+            "about",
+            document.querySelector("#about-content").textContent
+          );
+        }
+
+        // Modify existing form submission handlers to call saveData()
+        editForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          const headline = document.getElementById("headline").value;
+          const location = document.getElementById("location").value;
+          const about = document.getElementById("about").value;
+
+          document.querySelector(".profile-name").textContent = name;
+          document.querySelector(".profile-headline").textContent = headline;
+          document.querySelector(".profile-location").textContent = location;
+          document.querySelector("#about-content").textContent = about;
+
+          editForm.classList.remove("active");
+          saveData();
+        });
+
+        aboutForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          aboutContent.textContent = aboutTextarea.value;
+          aboutForm.classList.remove("active");
+          saveData();
+        });
+
+        experienceForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(experienceForm);
+          const newExperience = {
+            id: experienceForm.getAttribute("data-id") || Date.now(),
+            title: formData.get("job-title"),
+            company: formData.get("company"),
+            startDate: formData.get("start-date"),
+            endDate: formData.get("end-date"),
+            description: formData.get("description"),
+          };
+
+          if (experienceForm.getAttribute("data-id")) {
+            experiences = experiences.map((exp) =>
+              exp.id == newExperience.id ? newExperience : exp
+            );
+          } else {
+            experiences.push(newExperience);
+          }
+
+          renderExperiences();
+          experienceForm.style.display = "none";
+          experienceForm.reset();
+          saveData();
+        });
+
+        skillsForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const newSkill = document.getElementById("skill-name").value;
+          if (newSkill && !skills.includes(newSkill)) {
+            skills.push(newSkill);
+            renderSkills();
+            skillsForm.style.display = "none";
+            skillsForm.reset();
+            saveData();
+          }
+        });
+
+        educationForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(educationForm);
+          const newEducation = {
+            id: educationForm.getAttribute("data-id") || Date.now(),
+            degree: formData.get("degree"),
+            school: formData.get("school"),
+            startYear: formData.get("start-year"),
+            endYear: formData.get("end-year"),
+          };
+
+          if (educationForm.getAttribute("data-id")) {
+            educations = educations.map((edu) =>
+              edu.id == newEducation.id ? newEducation : edu
+            );
+          } else {
+            educations.push(newEducation);
+          }
+
+          renderEducations();
+          educationForm.style.display = "none";
+          educationForm.reset();
+          saveData();
+        });
+
+        // Load data on page load
+        loadData();
+      });
+    </script>
+  </body>
+</html>
